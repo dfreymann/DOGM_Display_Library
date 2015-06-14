@@ -5,10 +5,10 @@ This is an in progress port to enable hardware SPI use of the Electronic Assembl
 
 6.14.15 version 0.5 
 
-At this point this code has only been tested using a DOGM162W-A display (16x2 lines, 3V3, no backlight) connected to an Arduino Nano with hardware or software SPI. Works fine. 
+At this point this code has only been tested using a DOGM162W-A display (16x2 lines, 3V3, no backlight) connected to an Arduino Uno with hardware or software SPI. Works fine. 
 Other variations of the display (1 line, 3 line), and 5V operation have NOT been tested yet. 
 
-* NOT yet converted for or tested to run on the Spark Core/Photon! * 
+* NOT yet converted for or tested to run on the Spark Core/Photon! 
 
 The Library is based on and includes much of the code from the DogLCD Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with adaptations from the dogm_7036 Library provided by ELECTRONIC ASSEMBLY  (http://www.lcd-module.com/support/application-note/arduino-meets-ea-dog.html) and the SparkCore-LiquidCrystalSPI Library written by BDub (https://github.com/technobly/SparkCore-LiquidCrystalSPI)
 
