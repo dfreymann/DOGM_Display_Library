@@ -14,7 +14,7 @@ The Library is based on and includes much of the code from the DogLCD Library wr
 
 Changes include -
 * modifications to allow hardware SPI
-* addition of setGain to allow software setting of the LCD amplification ratio (works with Contrast to determine whether you see anything on the display, or see 'black boxes'.
+* addition of setGain to allow software setting of the LCD amplification ratio (works with Contrast to determine whether you see anything on the display, or see 'black boxes').
 * user inputs contrast and gain (if desired) over integer range 1-64 and 1-8
 * restructuring of the initialization code to make hardware and  voltage dependent parameter settings more explicit.
 * flag to prevent hardware reset if user has added new characters (deleted during the reset, otherwise).
