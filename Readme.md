@@ -10,7 +10,7 @@ Other variations of the display (1 line, 3 line), and 5V operation have NOT been
 
 * NOT yet converted for or tested to run on the Spark Core/Photon! 
 
-The Library is based on and includes much of the code from the DogLCD Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with adaptations from the dogm_7036 Library provided by ELECTRONIC ASSEMBLY  (http://www.lcd-module.com/support/application-note/arduino-meets-ea-dog.html) and the SparkCore-LiquidCrystalSPI Library written by BDub (https://github.com/technobly/SparkCore-LiquidCrystalSPI)
+The Library is based on and includes much of the code from the DogLcd Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with adaptations from the dogm_7036 Library provided by ELECTRONIC ASSEMBLY  (http://www.lcd-module.com/support/application-note/arduino-meets-ea-dog.html) and the SparkCore-LiquidCrystalSPI Library written by BDub (https://github.com/technobly/SparkCore-LiquidCrystalSPI)
 
 Changes include -
 * modifications to allow hardware SPI
