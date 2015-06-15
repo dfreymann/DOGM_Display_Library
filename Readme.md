@@ -4,9 +4,10 @@ do_DogLcd
 This is an in progress port to enable hardware SPI use of the Electronic Assembly DOGM displays with the Particle Core and Photon.
 
 6.14.15 version 0.1
+
 6.15.15 version 0.1.5
 
-This code has only been tested using a DOGM162W-A display (16x2 lines, "3V3"*, no backlight). Other variations of the display (1 line, 3 line), and 5V operation have NOT been tested yet. 
+This code has only been tested using a DOGM162W-A display (16x2 lines, "3V3"*, no backlight). Other variations of the display (1 line, 3 line) have NOT been tested yet. 
 
 6.14.15
 It has been tested connected to an Arduino Uno with hardware or software SPI, at 5V. Works fine, pretty much. 
