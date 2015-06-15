@@ -3,7 +3,9 @@
  * to enable hardware SPI use of the Electronic Assembly
  * DOGM displays with the Particle Core and Photon.
  *
- * Version 0.11
+ * Particle Core port
+ *
+ * Version 0.15
  * At this point this code has only been tested using a
  * DOGM162W-A display (16x2 lines, 3V3, no backlight) connected
  * to an Arduino Nano with hardware or software SPI. Works fine.
@@ -47,15 +49,26 @@
 
 #include "do_DogLcd.h"
 
+#if defined(SPARK)
+#include <application.h>
+#elif defined(ARDUINO) && ARDUINO >= 100
+#include <Arduino.h>
+#elif defined(ARDUINO)
+#include <WProgram.h>
+#endif
+
+#if defined(ARDUINO)
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
 #include <SPI.h>
+#endif
 
-#if (ARDUINO >= 100)
-#include <Arduino.h>
-#else
-#include <WProgram.h>
+#if defined(SPARK)
+#define bitRead(value, bit) (((value) >> (bit)) & 0x01)
+#define theClockDivider SPI_CLOCK_DIV32
+#elif defined(ARDUINO)
+#define theClockDivider SPI_CLOCK_DIV4
 #endif
 
 DogLcdhw::DogLcdhw(int lcdSI, int lcdCLK, int lcdCSB, int lcdRS, int lcdRESET, int backLight) {
@@ -116,16 +129,18 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
          * ~8*1uS=8us. The Particle Core clock speed is 72MHz, and if DIV8 is used
          * then the SPI bus is running at 9Mhz. From the ST7036 controller datasheet, the 4 wire
          * SPI interface minimum clock period is 200 nS, which corresponds to 5Mhz. If I'm
-         * reading this right, we should be able to use DIV4 on the Arduino (4Mhz), and DIV16 on
-         * the Particle Core (4.5Mhz) - to be tested.
-         * TESTED: Arduino Mode3 set, works DIV2->DIV128,
+         * reading this right, we should be able to use DIV4 on the Arduino (4Mhz), and
+         * DIV16 [x NO, tested this. use DIV32] on the Particle Core (4.5Mhz) - to
+         * be tested...
+         * TESTED: ARDUINO Mode3 set, works DIV2->DIV128,
          *                 Mode0 set, fails with DIV2 and DIV4, works DIV8->DIV128
-         *
+         * TESTED: SPARK   Mode3 set, fails with DIV16, works with DIV32 and DIV128
+         *                 Mode0 set, fails with DIV16, works with DIV32 and DIV128
          */
         SPI.begin();
         SPI.setBitOrder(MSBFIRST);
-        SPI.setDataMode(SPI_MODE3);
-        SPI.setClockDivider(SPI_CLOCK_DIV4);
+        SPI.setDataMode(SPI_MODE0);
+        SPI.setClockDivider(theClockDivider);
     }
 
     pinMode(this->lcdRS,OUTPUT);
@@ -140,12 +155,6 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
         pinMode(this->backLight,OUTPUT);
         digitalWrite(this->backLight,LOW);
     }
-
-    // user inputs integer contrast (range 1-64) and integer gain (range 1-7),
-    // bit range for for contrast is 0x00 - 0x3F, for gain is 0x00 - 0x03. If
-    // contrast or gain are not input, voltage dependent defaults will be set.
-    gain -= 1;
-    contrast -= 1;
 
     // set all model-specific parameters here
     if(model==DOG_LCDhw_M081) {
@@ -202,15 +211,14 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
         boosterMode = 0x00;
         biasAndFx |= 0x08;
         // set default contrast and gain (amplification ratio)
-        if (gain == -1) {
-            // set a default that seems to work for 5V
-            gain = 1;
-        }
         if (contrast == -1){
             // set a default that seems to work for 5V
-            contrast = 28;
+            contrast = GOOD_5V_CONTRAST;
         }
-        this->gain=gain;
+        if (gain == -1) {
+            // set a default that seems to work for 5V
+            gain = GOOD_5V_GAIN;
+        }
     } else if (vcc==DOG_LCDhw_VCC_3V3) {
         this->vcc=vcc;
         // dmf - new
@@ -218,13 +226,12 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
         // set default contrast and gain (amplification ratio)
         if (contrast == -1){
             // set a default that seems to work for 3V3
-            contrast = 28;
+            contrast = GOOD_3V3_GAIN;
         }
         if (gain == -1) {
             // set a default that seems to work for 3V3
-            gain = 3;
+            gain = GOOD_3V3_CONTRAST;
         }
-        this->gain=gain;
     } else {
         //unknown or unsupported supply voltage
         return -1;
@@ -235,6 +242,7 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
         return -1;
     }
     this->contrast=contrast;
+    this->gain=gain;
 
     // the reset() method does the actual display initialization
     reset();

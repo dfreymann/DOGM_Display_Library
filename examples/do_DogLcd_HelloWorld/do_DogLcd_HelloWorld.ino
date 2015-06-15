@@ -1,5 +1,8 @@
 /*
   do_DogLCD library - Hello World
+
+  Arduino port
+
   This exercises a number of the features of the display. 
   The function at the end can be called to test the full
   range of Gain/Contrast settings for the display (note 
