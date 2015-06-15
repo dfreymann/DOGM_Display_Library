@@ -27,9 +27,7 @@ Changes include -
 * added #if defined(SPARK) and #if defined(ARDUINO) statements to allow the library to work with both platforms. seems to behave as expected. 
 * heavily commented due to being a library/hardware n00b.
 
-EA DOGM documentation is available here: http://www.lcd-module.de/fileadmin/eng/pdf/doma/dog-me.pdf
-
-The display controller documentation is available here: http://www.lcd-module.de/eng/pdf/zubehoer/st7036.pdf
+EA DOGM documentation is available here: http://www.lcd-module.de/fileadmin/eng/pdf/doma/dog-me.pdf. The display controller documentation is available here: http://www.lcd-module.de/eng/pdf/zubehoer/st7036.pdf
 
 http://jaldilabs.org
 
