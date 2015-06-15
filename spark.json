@@ -1,0 +1,7 @@
+{
+    "name": "do_DogLcd",
+    "version": "0.11",
+    "author": "Douglas Freymann <jaldilabs@gmail.com>",
+    "license": "Choose a license",
+    "description": "in progress port of the EA DOGM LCD Display library for the Spark Core"
+}

@@ -5,7 +5,10 @@ This is an in progress port to enable hardware SPI use of the Electronic Assembl
 
 6.14.15 version 0.5 
 
-At this point this code has only been tested using a DOGM162W-A display (16x2 lines, 3V3, no backlight) connected to an Arduino Uno with hardware or software SPI. Works fine. 
+At this point this code has only been tested using a DOGM162W-A display (16x2 lines, "3V3"*, no backlight) connected to an Arduino Uno with hardware or software SPI. Works fine. 
+
+*Doh! On the Uno, all input signals 5V. OK... HAS been tested at 5V (VDD to 5V) and works fine.
+
 Other variations of the display (1 line, 3 line), and 5V operation have NOT been tested yet. 
 
 * NOT yet converted for or tested to run on the Spark Core/Photon! 

@@ -3,7 +3,9 @@
  * to enable hardware SPI use of the Electronic Assembly
  * DOGM displays with the Particle Core and Photon.
  *
- * Version 0.1
+ * Particle Core port
+ *
+ * Version 0.15
  * At this point this code has only been tested using a
  * DOGM162W-A display (16x2 lines, 3V3, no backlight) connected
  * to an Arduino Nano with hardware or software SPI. Works fine.
@@ -48,8 +50,12 @@
 #ifndef do_DOG_LCD_h
 #define do_DOG_LCD_h
 
+#if defined(SPARK)
+#include <application.h>
+#elif defined(ARDUINO)
 #include <inttypes.h>
 #include "Print.h"
+#endif
 
 /** Define the available models */
 #define DOG_LCDhw_M081 1
@@ -59,6 +65,12 @@
 /** define the supply voltage for the display */
 #define DOG_LCDhw_VCC_5V 0
 #define DOG_LCDhw_VCC_3V3 1
+
+/** define 'good' contrast and gain values for defaults */
+#define GOOD_5V_GAIN 2
+#define GOOD_5V_CONTRAST 40
+#define GOOD_3V3_GAIN 3
+#define GOOD_3V3_CONTRAST 50
 
 /**
  * A class for Dog text LCD's using the
@@ -321,35 +333,30 @@ class DogLcdhw : public Print {
      */
     void ascii (char character);
 
-     /*
-        Using namespace Print::write makes it possible to
-        to send data to the Lcd via the lcd.write(const char *) or
-        a lcd.write(const uint8_t *,int) methods.
-     */
-     using Print::write;
-  
-#if ARDUINO >= 100
-      //The Print::write() signatuire was changed with Arduino versions >= 1.0
-  
-      /**
-       * Implements the write()-method from the base-class that
-       * is called whenever a character is to be printed to the
-       * display.
-       * @param c the character to be printed.
-       * @return int number of characters written
-       */
-      virtual size_t write(uint8_t c) { writeChar(c); return 1; }
+    /*
+       Using namespace Print::write makes it possible to
+       to send data to the Lcd via the lcd.write(const char *) or
+       a lcd.write(const uint8_t *,int) methods.
+    */
+    using Print::write;
 
-#else
-      //This keeps the library compatible with pre-1.0 versions of the Arduino core
-  
-      /**
-       * Implements the write()-method from the base-class that
-       * is called whenever a character is to be printed to the
-       * display.
-       * @param c the character to be printed.
-       */
-      virtual void write(uint8_t c) { writeChar(c); }
+
+#if defined (SPARK) || (defined(ARDUINO) && ARDUINO >= 100)
+    //The Print::write() signature was changed with Arduino versions >= 1.0
+
+    /**
+     * Implements the write()-method from the base-class that
+     * is called whenever a character is to be printed to the
+     * display.
+     * @param c the character to be printed.
+     * @return int number of characters written
+     */
+     virtual size_t write(uint8_t c) { writeChar(c); return 1; }
+
+#elif defined(ARDUINO)
+    //This keeps the library compatible with pre-1.0 versions of the Arduino core
+    virtual void write(uint8_t c) { writeChar(c); }
+
 #endif
 
     /**
