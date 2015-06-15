@@ -18,6 +18,7 @@ It has been tested connected to a Spark Core with hardware or software SPI at 3V
 The contrast/gain settings were scanned to find values that work well - at 3V3, Gain 3, Contrast 50, and at 5V, Gain 2, Contrast 40 are set as defaults [bug] - but there's a range of values that work. Problem is, if you're off at all, you see nothing or you see black squares. 
 
 V 0.1 Arduino-only code is in /src
+
 V 0.1.5 Spark/Arduino code is in /firmware
 
 The Library is based on and includes much of the code from the DogLcd Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with adaptations from the dogm_7036 Library provided by ELECTRONIC ASSEMBLY  (http://www.lcd-module.com/support/application-note/arduino-meets-ea-dog.html) and the SparkCore-LiquidCrystalSPI Library written by BDub (https://github.com/technobly/SparkCore-LiquidCrystalSPI)
