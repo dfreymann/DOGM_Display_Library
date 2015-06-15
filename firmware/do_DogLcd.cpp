@@ -5,11 +5,11 @@
  *
  * Particle Core port
  *
- * Version 0.1.6
+ * Version 0.1.8
  * This code has only been tested using a
- * DOGM162W-A display (16x2 lines, 3V3, no backlight) 
+ * DOGM162W-A display (16x2 lines, 3V3, no backlight)
  * connected either to an Arduino Uno (5V) with hardware or software SPI, or
- * to a Spark Core (3V3) with hardware or software SPI. Works fine. 
+ * to a Spark Core (3V3) with hardware or software SPI. Works fine.
  *
  * The Library is based on and includes much of the code from the DogLCD
  * Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with
@@ -227,11 +227,11 @@ int DogLcdhw::begin(int model, int vcc, int contrast, int gain) {
         // set default contrast and gain (amplification ratio)
         if (contrast == -1){
             // set a default that seems to work for 3V3
-            contrast = GOOD_3V3_GAIN;
+            contrast = GOOD_3V3_CONTRAST;
         }
         if (gain == -1) {
             // set a default that seems to work for 3V3
-            gain = GOOD_3V3_CONTRAST;
+            gain = GOOD_3V3_GAIN;
         }
     } else {
         //unknown or unsupported supply voltage

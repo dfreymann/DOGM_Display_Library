@@ -5,11 +5,11 @@
  *
  * Particle Core port
  *
- * Version 0.1.6
+ * Version 0.1.8
  * This code has only been tested using a
- * DOGM162W-A display (16x2 lines, 3V3, no backlight) 
+ * DOGM162W-A display (16x2 lines, 3V3, no backlight)
  * connected either to an Arduino Uno (5V) with hardware or software SPI, or
- * to a Spark Core (3V3) with hardware or software SPI. Works fine. 
+ * to a Spark Core (3V3) with hardware or software SPI. Works fine.
  *
  * The Library is based on and includes much of the code from the DogLCD
  * Library written by Eberhard Fahle (https://github.com/wayoda/DogLcd) with
